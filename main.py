@@ -1,7 +1,5 @@
-
 class Contact:
-
-    all_contacts = []
+    all_contacts = ContactList()
 
     def __init__(self, name, email):
         self.name = name
@@ -9,7 +7,7 @@ class Contact:
         Contact.all_contacts.append(self)
 
     @classmethod
-    def reset_contact(cls):
+    def reset_contacts(cls):
         cls.all_contacts = []
 
 
@@ -20,9 +18,10 @@ class Supplier(Contact):
         Supplier.all_orders[self.name] = string
 
 
-class ContactList(Contact):
-    @classmethod
-    def search(cls):
-        pass
-
-
+class ContactList(list):
+    def search(self, string):
+        return_list = []
+        for contact in self:
+            if string in contact.name:
+                return_list.append(contact)
+        return return_list
